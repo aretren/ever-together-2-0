@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>События - Ever Together</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="background-container"></div>
+
+    <header class="text-center py-12 md:py-20">
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight">Ever Together</h1>
+        <p class="text-lg md:text-xl text-gray-500 mt-4">Календарь наших событий</p>
+        <nav class="mt-8">
+            <div class="inline-flex items-center bg-white/50 backdrop-blur-sm p-1 rounded-full shadow-md">
+                <a href="index.html" class="px-6 py-2 text-sm font-semibold rounded-full text-gray-500 hover:text-gray-800 transition-colors">Галерея</a>
+                <a href="wishlist.html" class="px-6 py-2 text-sm font-semibold rounded-full text-gray-500 hover:text-gray-800 transition-colors">Вишлист</a>
+                <a href="events.html" class="px-6 py-2 text-sm font-semibold rounded-full bg-white text-gray-800 shadow-sm">События</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <!-- Upcoming Events Timeline -->
+        <section id="events-timeline" class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-500">Ближайшие события</h2>
+            <div id="timeline-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <!-- Timeline items will be injected here -->
+            </div>
+        </section>
+
+        <!-- All Events List -->
+        <section id="all-events">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-500">Все события</h2>
+            <div id="events-list-container" class="space-y-4">
+                <!-- Event list items will be injected here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Admin Panel -->
+    <footer class="fixed bottom-0 left-0 right-0 p-4 flex justify-center">
+        <button id="open-admin-btn" class="w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors text-2xl">
+            +
+        </button>
+    </footer>
+
+    <div id="admin-panel" class="fixed inset-0 bg-black/30 backdrop-blur-xl flex items-center justify-center hidden z-40">
+        <div class="bg-white p-8 rounded-2xl w-full max-w-md mx-4 relative shadow-2xl">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Добавить событие</h2>
+            <form id="event-form">
+                <input type="hidden" id="event-id" name="id">
+                <div class="mb-4">
+                    <label for="event-name" class="block text-sm font-medium text-gray-600 mb-1">Название</label>
+                    <input type="text" id="event-name" name="name" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="event-date" class="block text-sm font-medium text-gray-600 mb-1">Дата</label>
+                    <input type="date" id="event-date" name="date" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="event-repeat" class="block text-sm font-medium text-gray-600 mb-1">Повторение</label>
+                    <select id="event-repeat" name="repeat" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="none">Не повторять</option>
+                        <option value="weekly">Еженедельно</option>
+                        <option value="monthly">Ежемесячно</option>
+                        <option value="yearly">Ежегодно</option>
+                    </select>
+                </div>
+                <button type="submit" id="submit-event-btn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">Сохранить</button>
+            </form>
+            <button id="close-admin-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script defer src="config.js"></script>
+    <script defer src="events.js"></script>
+</body>
+</html>
