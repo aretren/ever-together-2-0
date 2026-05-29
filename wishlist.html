@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist - Ever Together</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</script>
+</head>
+<body>
+    <div class="background-container"></div>
+
+    <header class="text-center py-12 md:py-20">
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight">Ever Together</h1>
+        <p class="text-lg md:text-xl text-gray-500 mt-4">Вишлист наших желаний</p>
+        <nav class="mt-8">
+            <div class="inline-flex items-center bg-white/50 backdrop-blur-sm p-1 rounded-full shadow-md">
+                <a href="index.html" class="px-6 py-2 text-sm font-semibold rounded-full text-gray-500 hover:text-gray-800 transition-colors">Галерея</a>
+                <a href="wishlist.html" class="px-6 py-2 text-sm font-semibold rounded-full bg-white text-gray-800 shadow-sm">Вишлист</a>
+                <a href="events.html" class="px-6 py-2 text-sm font-semibold rounded-full text-gray-500 hover:text-gray-800 transition-colors">События</a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="wishlist" class="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 pb-20">
+        <!-- Wishlist items will be injected here by JavaScript -->
+    </main>
+
+    <!-- Admin Panel -->
+    <footer class="fixed bottom-0 left-0 right-0 p-4 flex justify-center">
+        <button id="open-admin-btn" class="w-12 h-12 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors text-2xl">
+            +
+        </button>
+    </footer>
+
+    <div id="admin-panel" class="fixed inset-0 bg-black/30 backdrop-blur-xl flex items-center justify-center hidden z-40">
+        <div class="bg-white p-8 rounded-2xl w-full max-w-md mx-4 relative shadow-2xl">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Добавить новое желание</h2>
+            <form id="add-wish-form">
+                <div class="mb-4">
+                    <label for="wish-name" class="block text-sm font-medium text-gray-600 mb-1">Название</label>
+                    <input type="text" id="wish-name" name="name" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Например, Поездка в горы" required>
+                </div>
+                <div class="mb-4">
+                    <label for="wish-description" class="block text-sm font-medium text-gray-600 mb-1">Описание</label>
+                    <textarea id="wish-description" name="description" rows="3" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Например, На выходные с палатками"></textarea>
+                </div>
+                <div class="mb-6">
+                    <label for="wish-link" class="block text-sm font-medium text-gray-600 mb-1">Ссылка</label>
+                    <input type="url" id="wish-link" name="link" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://example.com">
+                </div>
+                <button type="submit" id="submit-wish-btn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center">
+                    <span class="btn-text">Добавить желание</span>
+                    <div class="spinner hidden"></div>
+                </button>
+            </form>
+            <button id="close-admin-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="fixed inset-0 bg-black/30 backdrop-blur-xl flex items-center justify-center hidden z-50">
+        <div class="bg-white p-8 rounded-2xl w-full max-w-md mx-4 relative shadow-2xl">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Редактировать желание</h2>
+            <form id="edit-wish-form">
+                <input type="hidden" id="edit-wish-id" name="id">
+                <div class="mb-4">
+                    <label for="edit-wish-name" class="block text-sm font-medium text-gray-600 mb-1">Название</label>
+                    <input type="text" id="edit-wish-name" name="name" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-wish-description" class="block text-sm font-medium text-gray-600 mb-1">Описание</label>
+                    <textarea id="edit-wish-description" name="description" rows="3" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <div class="mb-6">
+                    <label for="edit-wish-link" class="block text-sm font-medium text-gray-600 mb-1">Ссылка</label>
+                    <input type="url" id="edit-wish-link" name="link" class="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button type="submit" id="update-wish-btn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">Сохранить</button>
+            </form>
+            <button id="close-edit-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
+        </div>
+    </div>
+
+    <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+    <script defer src="config.js"></script>
+    <script defer src="firebase-init.js"></script>
+    <script defer src="auth.js"></script>
+    <script defer src="wishlist.js"></script>
+</body>
+</html>
